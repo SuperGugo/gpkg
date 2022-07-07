@@ -1,0 +1,60 @@
+source /etc/gugconf
+
+fnins () {
+source ./$1
+printf '\e[1;34m%-6s\e[m' "Downloading $name-$version..."
+pkgdownload
+printf '\n\e[1;34m%-6s\e[m' "Configuring $name-$version..."
+pkgconfigure
+printf '\n\e[1;34m%-6s\e[m' "Making $name-$version..."
+pkgmake $makeflags
+if [ $optdoc == "y" ]
+then
+ printf '\n\e[1;34m%-6s\e[m' "Making documention for $name-$version..."
+ pkgmakedoc $makeflags
+fi
+if [ $tests == "y" ]
+then
+ printf '\n\e[1;34m%-6s\e[m' "Testing $name-$version..."
+ pkgtests $makeflags
+fi
+printf '\n\e[1;34m%-6s\e[m' "Installing $name-$version..."
+pkginstall $makeflags
+if [ $optdoc == "y" ]
+then
+ printf '\n\e[1;34m%-6s\e[m' "Installing documention for $name-$version..."
+ pkginstalldoc $makeflags
+fi
+printf '\e[1;34m%-6s\e[m' "Linking $name-$version..."
+stow --dir="/usr/pkg/$name" "$version" --target=/
+printf '\n\e[1;34m%-6s\e[m' "Cleaning files for $name-$version..."
+rm -rf $sources/$dir
+printf '\n\e[1;34m%-6s\e[m' "Package $name-$version installed at /usr/pkg/$name/$version."
+printf '\n'
+}
+
+fnun () {
+source ./$1
+printf '\e[1;34m%-6s\e[m' "Unlinking $name-$version..."
+stow -D --dir /usr/pkg/$name/ $version --target /
+printf '\e[1;34m%-6s\e[m' "Uninstalling $name-$version..."
+rm -rf /usr/pkg/$name/$version
+printf '\n\e[1;34m%-6s\e[m' "Package $name-$version uninstalled or not found."
+printf '\n'
+}
+
+fnup () {
+fnun $1.old
+fnins $1
+}
+
+case $1 in
+"install")
+  fnins $2;;
+"update")
+  fnup $2;;
+"remove")
+  fnun $2;;
+*)
+  printf 'what the fuck u doin man'
+esac
