@@ -1,13 +1,8 @@
-conf=/etc/gpkg/gug.conf
-if test -f "$conf"; then
-	source $conf
-else
-	cat << EOF > $conf
-	optdoc=y
-	tests=y
-	sources=/sources
-	makeflags=
-	EOF
+if [ -f /etc/gpkg/gug.conf ]; then
+	source /etc/gpkg/gug.conf
+else	
+	mkdir /etc/gpkg
+	printf "optdoc=y\ntests=y\nsources=/sources\nmakeflags=" > /etc/gpkg/gug.conf
 fi
 
 fnins () {
@@ -66,5 +61,6 @@ case $1 in
 "remove")
   fnun $2;;
 *)
-  printf 'valid arguments: install, update, remove'
+  printf 'valid arguments: install, update, remove\n'
 esac
+
