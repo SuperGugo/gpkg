@@ -1,5 +1,5 @@
 # GPKG
-GPKG is a very basic package manager created for use in a distro based on LFS but it should work on every other distro.
+GPKG is a very basic package manager created for use in a GNU/Linux distro based on LFS but it should work on every other GNU/Linux distro.
 # Dependencies
 bash
 stow
