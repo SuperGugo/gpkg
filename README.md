@@ -6,4 +6,4 @@ stow
 wget
 git
 # How to use
-just put `gug` in /usr/bin or /bin, make it executable with chmod and run `gug install/update/remove [package]` as root
+just put `gug` in /usr/bin or /bin, make it executable with chmod and run `gug install/update/remove [package]`
