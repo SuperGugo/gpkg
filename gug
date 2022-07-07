@@ -1,8 +1,8 @@
 if [ -f /etc/gpkg/gug.conf ]; then
 	source /etc/gpkg/gug.conf
 else	
-	mkdir /etc/gpkg
-	printf "optdoc=y\ntests=y\nsources=/sources\nmakeflags=\n" > /etc/gpkg/gug.conf
+	sudo mkdir /etc/gpkg
+	sudo printf "optdoc=y\ntests=y\nsources=/sources\nmakeflags=\n" > /etc/gpkg/gug.conf
 fi
 
 fnins () {
