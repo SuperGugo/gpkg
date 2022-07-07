@@ -10,7 +10,7 @@ source /etc/gpkg/packages/$1
 printf '\e[1;34m%-6s\e[m' "Downloading $name-$version..."
 cd $sources
 pkgdownload
-cd $dir
+cd $sources/$dir
 printf '\n\e[1;34m%-6s\e[m' "Configuring $name-$version..."
 pkgconfigure
 printf '\n\e[1;34m%-6s\e[m' "Making $name-$version..."
